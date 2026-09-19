@@ -1,27 +1,27 @@
-# Zoho CRM MCP server — through HeyMetra
+<div align="center">
 
-> **Unofficial.** This is not Zoho CRM's own MCP server and this repository is not affiliated with, endorsed by or supported by Zoho CRM. It documents how [HeyMetra](https://heymetra.com/), a remote MCP server built by Zeisoft, reads Zoho CRM.
+<img src="assets/cover.png" alt="Zoho CRM through HeyMetra's MCP server" width="100%">
+
+# Zoho CRM &times; HeyMetra
 
 **Lead counts and the pipeline by stage, split into open, won and lost.**
+
+Your pipeline lives in Zoho CRM. What it cost to fill it lives somewhere else entirely. Ask once, across both.
 
 [![MCP Registry](https://img.shields.io/badge/MCP_Registry-com.heymetra%2Fheymetra-1f6feb)](https://registry.modelcontextprotocol.io/v0/servers/com.heymetra%2Fheymetra/versions)
 [![Transport](https://img.shields.io/badge/transport-Streamable_HTTP-444)](https://modelcontextprotocol.io/)
 [![Auth](https://img.shields.io/badge/auth-OAuth_2.1-444)](https://heymetra.com/security/)
 [![Connector page](https://img.shields.io/badge/heymetra.com-zoho-crm-1f6feb)](https://heymetra.com/connectors/zoho-crm/)
 
+```
+https://mcp.heymetra.com/mcp
+```
+
+</div>
+
 ---
 
-## What Zoho CRM is
-
-Zoho CRM manages your leads, contacts, and deals across the sales cycle. It’s the system of record for your pipeline and sales activity.
-
-## What HeyMetra reads from Zoho CRM
-
-Connect the CRM once and your MCP client can read it: lead counts for a period grouped by source, status, owner, day, or any field your own Leads module carries — the custom ones your team added included; every deal by stage, split into open (the forecast), won (revenue already realised) and lost, each with the value of the deals that state an Amount; the list of fields your own modules carry, custom ones included, so a report can be built on the fields this organisation actually uses; and, if you switch that permission on, what your call notes are about and who has been writing them, with the text of each note behind a second switch of its own. Deals with no Amount are counted, not valued, and the answer says how many — a pipeline is not worth less because somebody left a field empty. Read-only: no tool changes a record.
-
-## What you can ask
-
-Once connected, in your own assistant, in plain language:
+## Ask it things like
 
 > How many leads came in this week, and where did they come from?
 
@@ -37,33 +37,7 @@ Once connected, in your own assistant, in plain language:
 
 > What subjects came up most in our call notes this month?
 
-## Permissions
-
-You switch these on per connection, and a permission you leave off is a tool your assistant never sees.
-
-| Permission | What it covers | Changes anything? |
-|---|---|---|
-| **Included with the connection** | What connecting Zoho CRM is for. It cannot be switched off on its own — removing the connection is how you withdraw it. | No, read only |
-| **Leads** | Read leads, sources, and statuses. | No, read only |
-| **Lead records and what people wrote** | Read each lead with its own field values, including free text. | No, read only |
-| **Deals** | Read the pipeline and deal values. | No, read only |
-| **Notes and call logs** | Read what notes are about and who wrote them, without their text. | No, read only |
-| **What the notes actually say** | Read the full text of each note, exactly as your team wrote it. Note bodies are free text about your own customers and often name them, with phone numbers, addresses, and health or other sensitive details. Switching this on sends that text to your AI assistant, which is a third party to the people it describes — and you are the one responsible for it. Off unless you turn it on. | No, read only |
-
-<details>
-<summary>What each permission lets an assistant do, in full</summary>
-
-- Lists your CRM's modules and one module's fields, your own custom ones included, with their labels and picklist values. It reads no record of anybody's.
-- Counts the leads that came in over a period and groups them by source, status, owner, day, or any field your Leads module carries. No lead's own answers.
-- Returns each lead from a period with its own values: the name, the phone number, the email address and whatever the person typed, custom fields included.
-- Reads your deals by stage — open, won, lost — and what each stage is worth, stating the currency rather than adding several together.
-- Reads the connector's own API response exactly as it arrived — nothing converted, checked or compared — behind the same permission as the tool it repeats. Paid plans only.
-- Counts call notes by subject, author, owner or day — and, while the note- bodies permission is on, returns what each note says, in your staff's own words.
-</details>
-
-## What it can change
-
-- Zoho CRM is a read-only source — HeyMetra reads it to answer questions and never changes the account.
+No dashboard, no export, no query language. You ask in the assistant you already use and the answer comes back with the account it came from.
 
 ## Connect Zoho CRM
 
@@ -178,9 +152,45 @@ _The key is serverUrl, not url — the one every other JSON client spells differ
 Full walkthrough: [heymetra.com/mcp/antigravity/](https://heymetra.com/mcp/antigravity/)
 </details>
 
-## Everything else HeyMetra reads
+## What it may and may not touch
 
-One connection answers across accounts — which is the point, because spend lives in one place and revenue in another:
+Zoho CRM is a read-only source — HeyMetra reads it to answer questions and never changes the account.
+
+Permissions are switched on per connection, and one you leave off is a tool your assistant never sees.
+
+| Permission | What it covers | Changes anything? |
+|---|---|---|
+| **Included with the connection** | What connecting Zoho CRM is for. It cannot be switched off on its own — removing the connection is how you withdraw it. | No, read only |
+| **Leads** | Read leads, sources, and statuses. | No, read only |
+| **Lead records and what people wrote** | Read each lead with its own field values, including free text. | No, read only |
+| **Deals** | Read the pipeline and deal values. | No, read only |
+| **Notes and call logs** | Read what notes are about and who wrote them, without their text. | No, read only |
+| **What the notes actually say** | Read the full text of each note, exactly as your team wrote it. Note bodies are free text about your own customers and often name them, with phone numbers, addresses, and health or other sensitive details. Switching this on sends that text to your AI assistant, which is a third party to the people it describes — and you are the one responsible for it. Off unless you turn it on. | No, read only |
+
+<details>
+<summary>What each permission lets an assistant do, in full</summary>
+
+- Lists your CRM's modules and one module's fields, your own custom ones included, with their labels and picklist values. It reads no record of anybody's.
+- Counts the leads that came in over a period and groups them by source, status, owner, day, or any field your Leads module carries. No lead's own answers.
+- Returns each lead from a period with its own values: the name, the phone number, the email address and whatever the person typed, custom fields included.
+- Reads your deals by stage — open, won, lost — and what each stage is worth, stating the currency rather than adding several together.
+- Reads the connector's own API response exactly as it arrived — nothing converted, checked or compared — behind the same permission as the tool it repeats. Paid plans only.
+- Counts call notes by subject, author, owner or day — and, while the note- bodies permission is on, returns what each note says, in your staff's own words.
+</details>
+
+## What HeyMetra reads from Zoho CRM
+
+Connect the CRM once and your MCP client can read it: lead counts for a period grouped by source, status, owner, day, or any field your own Leads module carries — the custom ones your team added included; every deal by stage, split into open (the forecast), won (revenue already realised) and lost, each with the value of the deals that state an Amount; the list of fields your own modules carry, custom ones included, so a report can be built on the fields this organisation actually uses; and, if you switch that permission on, what your call notes are about and who has been writing them, with the text of each note behind a second switch of its own. Deals with no Amount are counted, not valued, and the answer says how many — a pipeline is not worth less because somebody left a field empty. Read-only: no tool changes a record.
+
+<details>
+<summary>About Zoho CRM</summary>
+
+Zoho CRM manages your leads, contacts, and deals across the sales cycle. It’s the system of record for your pipeline and sales activity.
+</details>
+
+## One connection, not seven
+
+The reason to read Zoho CRM through HeyMetra rather than through a server that only knows Zoho CRM is everything else it can answer in the same breath:
 
 **Ads** — [Google Ads](https://heymetra.com/connectors/google-ads/) · [Meta](https://heymetra.com/connectors/meta-ads/)
 
@@ -194,17 +204,17 @@ One connection answers across accounts — which is the point, because spend liv
 
 **Channels** — [Slack](https://github.com/zeisoft/slack-mcp) · [Telegram](https://github.com/zeisoft/telegram-mcp)
 
-The full catalogue, with what each one can do today, is at [heymetra.com/connectors/](https://heymetra.com/connectors/).
+The full catalogue is at [heymetra.com/connectors/](https://heymetra.com/connectors/).
 
 ## Links
 
-- [Zoho CRM connector page](https://heymetra.com/connectors/zoho-crm/) — the source this page is generated from
+- [Zoho CRM connector page](https://heymetra.com/connectors/zoho-crm/)
 - [HeyMetra](https://heymetra.com/) — what the product is
-- [Setup per assistant](https://heymetra.com/mcp/) — eight clients, step by step
+- [Setup for every assistant](https://heymetra.com/mcp/)
 - [Security and limits](https://heymetra.com/security/)
-- [Pricing](https://heymetra.com/pricing/) — paid, no free plan and no trial
+- [Pricing](https://heymetra.com/pricing/)
 - [HeyMetra's own repository](https://github.com/zeisoft/heymetra-mcp)
 
 ---
 
-<sub>This README is generated from HeyMetra's live connector catalogue and refreshed daily; it is committed only when something in it actually changed. Corrections are welcome as issues. Built by <a href="https://zeisoft.com">Zeisoft</a>.</sub>
+<sub>Built by <a href="https://zeisoft.com">Zeisoft</a>, who make HeyMetra. Not affiliated with Zoho CRM. This README is generated from HeyMetra's live connector catalogue and refreshed daily; corrections are welcome as issues.</sub>
