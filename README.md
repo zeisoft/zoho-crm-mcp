@@ -41,11 +41,31 @@ No dashboard, no export, no query language. You ask in the assistant you already
 
 ## Connect Zoho CRM
 
-1. Choose Zoho CRM on the Connections screen in HeyMetra.
-2. Sign in on Zoho's own screen with an account that can read the CRM. Your password stays with Zoho.
-3. Review the scopes Zoho shows and grant read access.
-4. Add HeyMetra to your MCP client — Claude, ChatGPT, Cursor or Codex — with the details HeyMetra gives you.
-5. The Zoho CRM tools appear in that client and answer from the live CRM.
+**1. Decide which Zoho user will authorise it**
+
+HeyMetra sees exactly what that user sees. A CRM with territories or role-based sharing shows different records to different people, so the account you sign in with decides the answers, not the plan or the permission switches.
+
+> An administrator sees everything, which is usually what a question about the whole pipeline wants — and is more than you may intend to expose. Pick deliberately.
+
+**2. Choose Zoho CRM on the Connections screen**
+
+It sends you to Zoho's own sign-in page. Your password is typed on Zoho's screen and never reaches HeyMetra.
+
+**3. Grant the three read permissions Zoho lists**
+
+Modules, organisation and settings — all READ. Modules is the records themselves; settings is what lets HeyMetra read your own field names, so a custom field your team added comes back under the label they gave it.
+
+> There is nothing on this screen that can write. If Zoho offers you a WRITE or ALL scope, you are on a different consent screen than the one HeyMetra asked for.
+
+**4. Check the data centre matches**
+
+Zoho runs separate data centres — .com, .eu, .in, .com.au and others — and an organisation lives in exactly one. HeyMetra records which one from the sign-in and calls that one afterwards.
+
+> This is why signing in with the wrong regional account produces an empty CRM rather than an error: the credential is valid, it is simply pointed at a data centre your records are not in.
+
+**5. Add HeyMetra to the assistant you use**
+
+Claude, ChatGPT, Cursor or Codex. The CRM tools appear there and answer from the live CRM — nothing is copied out of it.
 
 ## Then add HeyMetra to your assistant
 
@@ -186,6 +206,35 @@ Permissions are switched on per connection, and one you leave off is a tool your
 - Reads your deals by stage — open, won, lost — and what each stage is worth, stating the currency rather than adding several together.
 - Reads the connector's own API response exactly as it arrived — nothing converted, checked or compared — behind the same permission as the tool it repeats. Paid plans only.
 - Counts call notes by subject, author, owner or day — and, while the note- bodies permission is on, returns what each note says, in your staff's own words.
+</details>
+
+## When something goes wrong
+
+<details>
+<summary>It connects, and the CRM looks empty or much smaller than it is.</summary>
+
+**Why:** The Zoho user who authorised it cannot see those records — a sharing rule, a territory, or simply a different organisation on a different data centre.
+
+**Fix:** Disconnect and connect again as a user who can see them. Comparing one count against Zoho's own list view, signed in as that same user, tells you which of the two it is.
+
+</details>
+
+<details>
+<summary>A field the team uses every day is missing from the answers.</summary>
+
+**Why:** Custom fields are read from the module's own definitions, which needs the settings permission. Without it the standard fields still arrive and the custom ones silently do not.
+
+**Fix:** Reconnect and grant all three permissions. The field tool lists what HeyMetra can currently see, which is the quickest way to tell whether a field is missing or merely empty.
+
+</details>
+
+<details>
+<summary>Answers stop after a while and ask for a reconnect.</summary>
+
+**Why:** The grant was revoked in Zoho, or the authorising user was deactivated. A connection is that person's access, so it ends when their access does.
+
+**Fix:** Reconnect. If the person has left, connect as somebody who has not — the same reason the first step asks you to choose deliberately.
+
 </details>
 
 ## What HeyMetra reads from Zoho CRM
