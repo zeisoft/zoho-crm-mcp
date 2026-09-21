@@ -201,10 +201,10 @@ Permissions are switched on per connection, and one you leave off is a tool your
 <summary>What each permission lets an assistant do, in full</summary>
 
 - Lists your CRM's modules and one module's fields, your own custom ones included, with their labels and picklist values. It reads no record of anybody's.
-- Counts the leads that came in over a period and groups them by source, status, owner, day, or any field your Leads module carries. No lead's own answers.
 - Returns each lead from a period with its own values: the name, the phone number, the email address and whatever the person typed, custom fields included.
+- Counts the leads that came in over a period and groups them by source, status, owner, day, or any field your Leads module carries. No lead's own answers.
 - Reads your deals by stage — open, won, lost — and what each stage is worth, stating the currency rather than adding several together.
-- Reads the connector's own API response exactly as it arrived — nothing converted, checked or compared — behind the same permission as the tool it repeats. Paid plans only.
+- Reads Zoho CRM's own Deals response exactly as it arrived — nothing converted, checked or compared. Paid plans only.
 - Counts call notes by subject, author, owner or day — and, while the note- bodies permission is on, returns what each note says, in your staff's own words.
 </details>
 
