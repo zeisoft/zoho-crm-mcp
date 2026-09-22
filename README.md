@@ -190,22 +190,13 @@ Permissions are switched on per connection, and one you leave off is a tool your
 
 | Permission | What it covers | Changes anything? |
 |---|---|---|
-| **Included with the connection** | What connecting Zoho CRM is for. It cannot be switched off on its own — removing the connection is how you withdraw it. | No, read only |
-| **Leads** | Read leads, sources, and statuses. | No, read only |
-| **Lead records and what people wrote** | Read each lead with its own field values, including free text. | No, read only |
-| **Deals** | Read the pipeline and deal values. | No, read only |
-| **Notes and call logs** | Read what notes are about and who wrote them, without their text. | No, read only |
-| **What the notes actually say** | Read the full text of each note, exactly as your team wrote it. Note bodies are free text about your own customers and often name them, with phone numbers, addresses, and health or other sensitive details. Switching this on sends that text to your AI assistant, which is a third party to the people it describes — and you are the one responsible for it. Off unless you turn it on. | No, read only |
+| **Included with the connection** | What HeyMetra needs to set the connection up and nothing more. It cannot be switched off on its own — removing the connection is how you withdraw it. | No, read only |
+| **Direct API access** | Let your assistant use this account's own API for anything HeyMetra's other operations do not cover. It reads directly, and what comes back is the provider's own answer rather than a figure HeyMetra has checked. It can also propose changes — those are never applied until you approve them, and HeyMetra cannot undo one afterwards. | No, read only |
 
 <details>
 <summary>What each permission lets an assistant do, in full</summary>
 
-- Lists your CRM's modules and one module's fields, your own custom ones included, with their labels and picklist values. It reads no record of anybody's.
-- Returns each lead from a period with its own values: the name, the phone number, the email address and whatever the person typed, custom fields included.
-- Counts the leads that came in over a period and groups them by source, status, owner, day, or any field your Leads module carries. No lead's own answers.
-- Reads your deals by stage — open, won, lost — and what each stage is worth, stating the currency rather than adding several together.
-- Reads Zoho CRM's own Deals response exactly as it arrived — nothing converted, checked or compared. Paid plans only.
-- Counts call notes by subject, author, owner or day — and, while the note- bodies permission is on, returns what each note says, in your staff's own words.
+- Ask this account's own API a question HeyMetra's other operations do not cover. Reads only, and the answer is the provider's own rather than a figure HeyMetra has checked.
 </details>
 
 ## When something goes wrong
