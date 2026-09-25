@@ -45,7 +45,7 @@ No dashboard, no export, no query language. You ask in the assistant you already
 
 HeyMetra sees exactly what that user sees. A CRM with territories or role-based sharing shows different records to different people, so the account you sign in with decides the answers, not the plan or the permission switches.
 
-> An administrator sees everything, which is usually what a question about the whole pipeline wants — and is more than you may intend to expose. Pick deliberately.
+> An administrator sees everything, which is usually what a question about the whole pipeline wants, and may be more than you intend to expose. Pick deliberately.
 
 **2. Choose Zoho CRM on the Connections screen**
 
@@ -53,19 +53,19 @@ It sends you to Zoho's own sign-in page. Your password is typed on Zoho's screen
 
 **3. Grant the three read permissions Zoho lists**
 
-Modules, organisation and settings — all READ. Modules is the records themselves; settings is what lets HeyMetra read your own field names, so a custom field your team added comes back under the label they gave it.
+Modules, organisation and settings, all READ. Modules is the records themselves; settings is what lets HeyMetra read your own field names, so a custom field your team added comes back under the label they gave it.
 
-> There is nothing on this screen that can write. If Zoho offers you a WRITE or ALL scope, you are on a different consent screen than the one HeyMetra asked for.
+> If you chose read only, nothing on this screen can write. If you chose to allow changes, Zoho also lists CREATE and UPDATE on modules, and never DELETE. A WRITE or ALL scope means you are on a different consent screen than the one HeyMetra asked for.
 
 **4. Check the data centre matches**
 
-Zoho runs separate data centres — .com, .eu, .in, .com.au and others — and an organisation lives in exactly one. HeyMetra records which one from the sign-in and calls that one afterwards.
+Zoho runs separate data centres (.com, .eu, .in, .com.au and others), and an organisation lives in exactly one. HeyMetra picks up the right one from your sign-in.
 
 > This is why signing in with the wrong regional account produces an empty CRM rather than an error: the credential is valid, it is simply pointed at a data centre your records are not in.
 
 **5. Add HeyMetra to the assistant you use**
 
-Claude, ChatGPT, Cursor or Codex. The CRM tools appear there and answer from the live CRM — nothing is copied out of it.
+Claude, ChatGPT, Cursor or Codex. Your CRM answers there from the live data, and nothing is copied out of it.
 
 ## Then add HeyMetra to your assistant
 
@@ -100,7 +100,7 @@ Full walkthrough: [heymetra.com/mcp/claude/](https://heymetra.com/mcp/claude/)
 
 Paste the address above into Settings → Security and login → Developer mode, then chatgpt.com/plugins.
 
-_The endpoint has to include its /mcp path here._
+_The address has to end in /mcp here._
 
 Full walkthrough: [heymetra.com/mcp/chatgpt/](https://heymetra.com/mcp/chatgpt/)
 </details>
@@ -161,7 +161,7 @@ Full walkthrough: [heymetra.com/mcp/codex/](https://heymetra.com/mcp/codex/)
 }
 ```
 
-_Leave the static OAuth fields empty — they exist for servers that cannot register themselves._
+_Leave the static OAuth fields empty; HeyMetra does not need them._
 
 Full walkthrough: [heymetra.com/mcp/cursor/](https://heymetra.com/mcp/cursor/)
 </details>
@@ -177,27 +177,27 @@ Full walkthrough: [heymetra.com/mcp/cursor/](https://heymetra.com/mcp/cursor/)
 }
 ```
 
-_The key is serverUrl, not url — the one every other JSON client spells differently._
+_The key is serverUrl, not url, unlike every other JSON client._
 
 Full walkthrough: [heymetra.com/mcp/antigravity/](https://heymetra.com/mcp/antigravity/)
 </details>
 
 ## What it may and may not touch
 
-Propose a change through this account's own API, for operations HeyMetra does not cover. Nothing is sent until you approve it, and HeyMetra cannot undo it afterwards.
+Propose a change to this account. Nothing is sent until you approve it, and HeyMetra cannot undo it afterwards.
 
 Permissions are switched on per connection, and one you leave off is a tool your assistant never sees.
 
 | Permission | What it covers | Changes anything? |
 |---|---|---|
-| **Included with the connection** | What HeyMetra needs to set the connection up and nothing more. It cannot be switched off on its own — removing the connection is how you withdraw it. | No, read only |
-| **Direct API access** | Let your assistant use this account's own API for anything HeyMetra's other operations do not cover. It reads directly, and what comes back is the provider's own answer rather than a figure HeyMetra has checked. It can also propose changes — those are never applied until you approve them, and HeyMetra cannot undo one afterwards. | Yes — every change waits for your approval |
+| **Included with the connection** | What HeyMetra needs to set the connection up, and nothing more. It cannot be switched off on its own; to withdraw it, remove the connection. | No, read only |
+| **Full account access** | Lets your assistant read anything in this account to answer your questions. The figures are the provider's own, not ones HeyMetra has checked. It can also propose changes: none is applied until you approve it, and HeyMetra cannot undo one afterwards. | Yes — every change waits for your approval |
 
 <details>
 <summary>What each permission lets an assistant do, in full</summary>
 
-- Ask this account's own API a question HeyMetra's other operations do not cover. Reads only, and the answer is the provider's own rather than a figure HeyMetra has checked.
-- Propose a change through this account's own API, for operations HeyMetra does not cover. Nothing is sent until you approve it, and HeyMetra cannot undo it afterwards.
+- Ask anything about this account and get the answer from its live data. Reads only, and the figures are the provider's own rather than ones HeyMetra has checked.
+- Propose a change to this account. Nothing is sent until you approve it, and HeyMetra cannot undo it afterwards.
 </details>
 
 Anything that would change something comes back as a proposal you approve, inside bounds that live in code rather than in a prompt: ±50% on a budget, 5 campaigns per action and 20 changes a rolling day, and an approval that expires after 30 minutes. [How that works](https://heymetra.com/security/).
@@ -207,7 +207,7 @@ Anything that would change something comes back as a proposal you approve, insid
 <details>
 <summary>It connects, and the CRM looks empty or much smaller than it is.</summary>
 
-**Why:** The Zoho user who authorised it cannot see those records — a sharing rule, a territory, or simply a different organisation on a different data centre.
+**Why:** The Zoho user who authorised it cannot see those records. It may be a sharing rule, a territory, or simply a different organisation on a different data centre.
 
 **Fix:** Disconnect and connect again as a user who can see them. Comparing one count against Zoho's own list view, signed in as that same user, tells you which of the two it is.
 
@@ -218,7 +218,7 @@ Anything that would change something comes back as a proposal you approve, insid
 
 **Why:** Custom fields are read from the module's own definitions, which needs the settings permission. Without it the standard fields still arrive and the custom ones silently do not.
 
-**Fix:** Reconnect and grant all three permissions. The field tool lists what HeyMetra can currently see, which is the quickest way to tell whether a field is missing or merely empty.
+**Fix:** Reconnect and grant all three permissions. Asking your assistant which fields it can see is the quickest way to tell whether a field is missing or merely empty.
 
 </details>
 
@@ -227,13 +227,13 @@ Anything that would change something comes back as a proposal you approve, insid
 
 **Why:** The grant was revoked in Zoho, or the authorising user was deactivated. A connection is that person's access, so it ends when their access does.
 
-**Fix:** Reconnect. If the person has left, connect as somebody who has not — the same reason the first step asks you to choose deliberately.
+**Fix:** Reconnect. If the person has left, connect as somebody who has not. That is why the first step asks you to choose deliberately.
 
 </details>
 
 ## What HeyMetra reads from Zoho CRM
 
-Connect the CRM once and your MCP client gets one tool that reads it: lead counts for a period grouped by source, status, owner, day, or any field your own Leads module carries — the custom ones your team added included; every deal by stage, split into open (the forecast), won (revenue already realised) and lost, each with the value of the deals that state an Amount; the list of fields your own modules carry, custom ones included, so a report can be built on the fields this organisation actually uses; and, if you switch that permission on, what your call notes are about and who has been writing them, with the text of each note behind a second switch of its own. Deals with no Amount are counted, not valued, and the answer says how many — a pipeline is not worth less because somebody left a field empty. Zoho can separate reading from writing, so you choose which at connect time: a read-only connection is offered no tool that can change a record, and a read-and-write one proposes every change and waits for your approval.
+Connect the CRM once and ask about it from your assistant: lead counts for a period grouped by source, status, owner, day, or any field your Leads module carries, custom ones included; every deal by stage, split into open (the forecast), won (revenue already realised) and lost, each with the value of the deals that state an Amount; the fields your modules carry, so a report can be built on the fields your organisation actually uses; and, if you switch that permission on, what your call notes are about and who has been writing them, with the text of each note behind a second switch of its own. Deals with no Amount are counted, not valued, and the answer says how many. A pipeline is not worth less because somebody left a field empty. When you connect, you choose whether your assistant may only read, or also propose changes that wait for your approval.
 
 <details>
 <summary>About Zoho CRM</summary>
